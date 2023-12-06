@@ -1,0 +1,6 @@
+@media (max-with: 992px) {
+    .detailImg {
+        height: 1rem;
+        background-color: red;
+    }
+}

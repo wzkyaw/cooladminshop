@@ -1,0 +1,110 @@
+LARAVEL ==>
+
+    [1] change date format =>
+            $category->created_at->format('j-F-Y h:m A')
+
+    [2] comand for migreate without any data losing from database
+            1 => php artisan make:migration add_mobile_no_columns_to_users_table --table=users
+            2 => php artisan migrate
+
+    [3] return view with response in laravel
+            $response = [
+                    'status' => 'true' ,
+                    'message' => 'Order Complete'
+                ];
+                return response()->json($response,200);
+
+    [4] is there any file from client
+            hasFile('image')
+
+    [5] adding uniqueid after getting file name
+            uniqid() . $request->file('image')->getClientOriginalName()
+
+    [6] Searching & Paginate
+            $admin = User::when(request('searchKey') , function ($query) {
+                            $query->orWhere('name' , 'like' , '%'.request('searchKey').'%')
+                        })
+                        ->where('role' , 'admin')
+                        ->paginate(3);
+                $admin->appends(request()->all());
+            { need to use this property to fix UI paginate --> app/Http/Providers/ASP.php { Paginator::useBootstrapFive(); } }
+
+    [7] return with status to client
+            return back()->with(['deleteSuccess' => 'Deleted Account Successfully']);
+
+    [8] validation checking
+            Validator::make($request->all(), [
+                'categoryName' => 'required | unique:categories,name,'. $request->editId . ',category_id'
+                'image' => 'mimes:png,jpg,jpeg | file' ,
+                'newPassword' => 'required | min:6',
+                'confirmedPassword' => 'required | same:newPassword',
+            ])->validate();
+
+    [9] hashing password
+            Hash::make($request->confirmedPassword),
+            if (Hash::check($request->currentPassword, $dbHashValue))
+
+    [10] join table
+            Product::select('products.*' , 'categories.name as category_name')
+                ->when(request('searchKey') , function ($query) {
+                $query->where('products.name' , 'like' , '%'.request('searchKey').'%');
+                })
+                ->leftJoin('categories','products.category_id','categories.category_id')
+                ->orderBy('products.created_at' , 'desc')
+                ->paginate(3);
+                $pizzas->appends(request()->all());
+            return view ('admin.product.pizzaList' , compact('pizzas'));
+
+    [11] store image in storage as in public file
+            $request->file('pizzaImage')->storeAs('public' , $fileName);
+
+    [12] seeding to database
+            User::create( [
+                'name' => 'Admin' ,
+                'email' => 'admin@gmail.com' ,
+                'phone' => '09111111111' ,
+                'address' => 'Yangon' ,
+                'role' => 'admin' ,
+                'password' => Hash::make('admin123') ,
+                'gender' => 'male' ,
+            ] ) ;
+
+    [13] Loop and normal and Get || First
+            when get data from controller if it is Looping => { it is Collection }
+            Or => [ it is Array ]
+
+            get => Array $data[0]->id
+            first => Collection $data->id
+
+JAVASCRIPT || JQUERY ==>
+
+    [1] Date changing from laravel to jquery format to show in UI
+            $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            $dbDate = new Date (response[$i].created_at);
+            $finalDate = $months[$dbDate.getMonth()] +'-'+ $dbDate.getDate()+'-'+ $dbDate.getFullYear();
+
+    [2] jquery looping to get data row
+            $('#dataTable tbody tr').each(function (index,row) {
+                            $orderList.push ({
+                                'user_id' : $(row).find('.userId').val(),
+                                'product_id' : $(row).find('.productId').val(),
+                                'qty' : $(row).find('#qty').val(),
+                                'total' : $(row).find('#total').text().replace('Kyats' , '')*1,
+                                'order_code' : 'POS' + $random
+                            });
+                        });
+
+    [13] ajax
+            $.ajax ({
+                type : 'get' ,
+                url : 'http://localhost:8000/user/ajax/order' ,
+                data : Object.assign({}, $orderList) ,
+                dataType : 'json' ,
+                success : function (response) {
+                    if(response.status == 'true') {
+                        window.location.href = 'http://localhost:8000/user/homePage' ;
+                    }
+                }
+            });
+
+            to get data from Controller ==> ${ response.user_id } or ${ response[$i].user_id }

@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    /* width: 560px; */
+    border: 2px solid #e6ca3d;
+    backdrop-filter: blur(20%);
+    padding: 20px;
+}
+
+.container h2 {
+    width: 100%;
+    color: #e6ca3d;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.container .row100 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.container .row100 .col {
+    position: relative;
+    width: 100%;
+    padding: 0 10px;
+    margin: 30px 0 10px;
+    transition: 0.5s;
+}
+
+.container .row100 .inputBox {
+    width: 100%;
+    height: 52px;
+    margin-bottom: 2rem;
+}
+
+.container .row100 .inputBox .text {
+    color: #bca015;
+}
+
+.container .row100 .inputBox.textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px 0;
+}
+
+.container .row100 .inputBox.textarea textarea {
+    height: 100%;
+    width: 100%;
+    /* resize: none; */
+}
+
+.container .row100 .col button {
+    font-family: inherit;
+    font-size: 20px;
+    background: #e6ca3d;
+    color: white;
+    padding: 0.7em 1em;
+    padding-left: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.container .row100 .col button span {
+    text-align: center;
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.5s ease-in-out;
+}
+
+.container .row100 .col button svg {
+    text-align: center;
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.container .row100 .col button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.container .row100 .col button:hover svg {
+    transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.container .row100 .col button:hover span {
+    transform: translateX(35em);
+}
+
+.container .row100 .col button:active {
+    transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+    from {
+      transform: translateY(0.1em);
+    }
+
+    to {
+      transform: translateY(-0.1em);
+    }
+}
+
+/* input[type="submit"] {
+    width: 100%;
+    font-weight: 700;
+    letter-spacing: 3px;
+    border: none;
+    padding: 7px 35px;
+    cursor: pointer;
+    outline: none;
+    background: #e6ca3d;
+    color: #000;
+    color: #ffffff;
+    font-size: 18px;
+    border-radius: 2px;
+
+} */
